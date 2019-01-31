@@ -324,7 +324,7 @@ class Client(object):
                 poss_types = ['immediateOrCancel', 'postOnly']
                 if not order_type in poss_types:
                     raise PoloniexError(
-                        'Invalid orderType: {}'.format(orderType))
+                        'Invalid orderType: {}'.format(order_type))
                 params['orderType'] = 1
 
             return self._do_post(params)
