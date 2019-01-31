@@ -21,7 +21,6 @@ class Client(object):
         self._nonce = int(
             "{:.6f}".format(time()).replace('.', '')
         )
-        print('nonce: ', self._nonce)
         self.url_public = 'https://poloniex.com/public?command='
         self.url_private = 'https://poloniex.com/tradingApi'
         self.MINUTE, self.HOUR, self.DAY = 60, 60 * 60, 60 * 60 * 24
@@ -31,7 +30,6 @@ class Client(object):
     @property
     def nonce(self):
         """ Increments the nonce"""
-        self._nonce += 42
         print('nonce: ', self._nonce)
         return self._nonce
 
