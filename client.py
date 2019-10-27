@@ -73,13 +73,13 @@ class Client(object):
 
         return response.json()
 
-    def return24hVolume(self):
+    def return_24h_volume(self):
         url = self.url_public + 'return24hVolume'
         response = get(url)
 
         return response.json()
 
-    def returnOrderBook(self, currency_pair='all', depth=20):
+    def return_order_book(self, currency_pair='all', depth=20):
         params = {'currencyPair': currency_pair.upper(),
                   'depth': str(depth)}
         params = urlencode(params)
@@ -88,7 +88,7 @@ class Client(object):
 
         return response.json()
 
-    def marketTradeHist(self, currency_pair, start=None, end=None):
+    def market_trade_hist(self, currency_pair, start=None, end=None):
         params = {'currencyPair': currency_pair.upper()}
 
         if start:
@@ -102,7 +102,7 @@ class Client(object):
 
         return response.json()
 
-    def returnChartData(self, currency_pair, period=None, start=None, end=None):
+    def return_chart_data(self, currency_pair, period=None, start=None, end=None):
         if period not in [300, 900, 1800, 7200, 14400, 86400]:
             raise PoloniexError("Invalid candle period: {}".format(period))
 
@@ -122,13 +122,13 @@ class Client(object):
 
         return response.json()
 
-    def returnCurrencies(self):
+    def return_currencies(self):
         url = self.url_public + 'returnCurrencies'
         response = get(url)
 
         return response.json()
 
-    def returnLoanOrders(self, currency):
+    def return_loan_orders(self, currency):
         params = {'currency': currency.upper()}
         params = urlencode(params)
         url = self.url_public + 'returnLoanOrders'
@@ -138,33 +138,33 @@ class Client(object):
 
     ### PRIVATE METHODS ###
 
-    def returnBalances(self):
+    def return_balances(self):
         if self._has_credentials():
             params = {'command': 'returnBalances'}
 
             return self._do_post(params)
 
-    def returnCompleteBalances(self, account='all'):
+    def return_complete_balances(self, account='all'):
         if self._has_credentials():
             params = {'command': 'returnCompleteBalances',
                       'account': str(account)}
 
             return self._do_post(params)
 
-    def returnDepositAddresses(self):
+    def return_deposit_addresses(self):
         if self._has_credentials():
             params = {'command': 'returnDepositAddresses'}
 
             return self._do_post(params)
 
-    def generateNewAddress(self, currency):
+    def generate_new_address(self, currency):
         if self._has_credentials():
             params = {'command': 'generateNewAddress',
                       'currency': currency}
 
             return self._do_post(params)
 
-    def returnDepositsWithdrawals(self, start=None, end=None):
+    def return_deposits_withdrawals(self, start=None, end=None):
         if self._has_credentials():
             if not start:
                 start = time() - self.MONTH
@@ -177,7 +177,7 @@ class Client(object):
 
             return self._do_post(params)
 
-    def returnOpenOrders(self, currency_pair='all'):
+    def return_open_orders(self, currency_pair='all'):
         if self._has_credentials():
             params = {'nonce': self.nonce,
                       'command': 'returnOpenOrders',
@@ -185,7 +185,7 @@ class Client(object):
 
             return self._do_post(params)
 
-    def returnTradeHistory(self, currency_pair='all', start=None, end=None, limit=None):
+    def return_trade_history(self, currency_pair='all', start=None, end=None, limit=None):
         if self._has_credentials():
             params = {'command': 'returnTradeHistory',
                       'currencyPair': currency_pair.upper()}
@@ -201,7 +201,7 @@ class Client(object):
 
             return self._do_post(params)
 
-    def returnAvailableAccountBalances(self, account=None):
+    def return_available_account_balances(self, account=None):
         if self._has_credentials():
             params = {'command': 'returnAvailableAccountBalances'}
             if account:
@@ -209,32 +209,32 @@ class Client(object):
 
             return self._do_post(params)
 
-    def returnTradableBalances(self):
+    def return_tradable_balances(self):
         if self._has_credentials():
             params = {'command': 'returnTradableBalances'}
 
             return self._do_post(params)
 
-    def returnOpenLoanOffers(self):
+    def return_open_loan_offers(self):
         if self._has_credentials():
             params = {'command': 'returnOpenLoanOffers'}
 
             return self._do_post(params)
 
-    def returnOrderTrades(self, order_number):
+    def return_order_trades(self, order_number):
         if self._has_credentials():
             params = {'command': 'returnOrderTrades',
                       'orderNumber': str(order_number)}
 
             return self._do_post(params)
 
-    def returnActiveLoans(self):
+    def return_active_loans(self):
         if self._has_credentials():
             params = {'command': 'returnActiveLoans'}
 
             return self._do_post(params)
 
-    def returnLendingHistory(self, start=None, end=None, limit=None):
+    def return_lending_history(self, start=None, end=None, limit=None):
         if self._has_credentials():
             if not start:
                 start = time() - self.MONTH
@@ -249,8 +249,8 @@ class Client(object):
 
             return self._do_post(params)
 
-    def createLoanOffer(self, currency, amount,
-                        lending_rate, auto_renew=0, duration=2):
+    def create_loan_offer(self, currency, amount,
+                          lending_rate, auto_renew=0, duration=2):
         if self._has_credentials():
             params = {'command': 'createLoanOffer',
                       'currency': currency.upper(),
@@ -261,14 +261,14 @@ class Client(object):
 
             return self._do_post(params)
 
-    def cancelLoanOffer(self, order_number):
+    def cancel_loan_offer(self, order_number):
         if self._has_credentials():
             params = {'command': 'cancelLoanOffer',
                       'orderNumber': order_number}
 
             return self._do_post(params)
 
-    def toggleAutoRenew(self, order_number):
+    def toggle_auto_renew(self, order_number):
         if self._has_credentials():
             params = {'command': 'toggleAutoRenew',
                       'orderNumber': order_number}
@@ -305,14 +305,14 @@ class Client(object):
 
             return self._do_post(params)
 
-    def cancelOrder(self, order_number):
+    def cancel_order(self, order_number):
         if self._has_credentials():
             params = {'command': 'cancelOrder',
                       'orderNumber': order_number}
 
             return self._do_post(params)
 
-    def moveOrder(self, order_number, rate, amount=None, order_type=None):
+    def move_order(self, order_number, rate, amount=None, order_type=None):
         if self._has_credentials():
             params = {'command': 'moveOrder',
                       'orderNuber': str(order_number),
@@ -340,14 +340,14 @@ class Client(object):
 
             return self._do_post(params)
 
-    def returnFeeInfo(self):
+    def return_fee_info(self):
         if self._has_credentials():
             params = {'command': 'returnFeeInfo'}
 
             return self._do_post(params)
 
-    def transferBalance(self, currency, amount,
-                        from_account, to_account, confirmed=None):
+    def transfer_balance(self, currency, amount,
+                         from_account, to_account, confirmed=None):
         if self._has_credentials():
             params = {'command': 'transferBalance',
                       'currency': currency.upper(),
@@ -360,13 +360,13 @@ class Client(object):
 
             return self._do_post(params)
 
-    def returnMarginAccountSummary(self):
+    def return_margin_account_summary(self):
         if self._has_credentials():
             params = {'command': 'returnMarginAccountSummary'}
 
             return self._do_post(params)
 
-    def marginBuy(self, currency_pair, rate, amount, lending_rate=2):
+    def margin_buy(self, currency_pair, rate, amount, lending_rate=2):
         if self._has_credentials():
             params = {'command': 'marginBuy',
                       'currencyPair': currency_pair.upper(),
@@ -376,7 +376,7 @@ class Client(object):
 
             return self._do_post(params)
 
-    def marginSell(self, currency_pair, rate, amount, lending_rate=2):
+    def margin_sell(self, currency_pair, rate, amount, lending_rate=2):
         if self._has_credentials():
             params = {'command': 'marginSell',
                       'currencyPair': currency_pair.upper(),
@@ -386,14 +386,14 @@ class Client(object):
 
             return self._do_post(params)
 
-    def getMarginPosition(self, currency_pair='all'):
+    def get_margin_position(self, currency_pair='all'):
         if self._has_credentials():
             params = {'command': 'getMarginPosition',
                       'currencyPair': currency_pair.upper()}
 
             return self._do_post(params)
 
-    def closeMarginPosition(self, currency_pair):
+    def close_margin_position(self, currency_pair):
         if self._has_credentials():
             params = {'command': 'closeMarginPosition',
                       'currencyPair': currency_pair.upper()}
